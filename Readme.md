@@ -33,3 +33,5 @@ This will package all code into files located in .\bin\PoshDevOps. That folder i
 
 ---
 Maintained by Igor Abade
+
+[![Build Status](https://dev.azure.com/igoravl-mvpconf-2020/PoshDevOps/_apis/build/status/igoravl.PoshDevOps?branchName=master)](https://dev.azure.com/igoravl-mvpconf-2020/PoshDevOps/_build/latest?definitionId=4&branchName=master) [![Release Status](https://vsrm.dev.azure.com/igoravl-mvpconf-2020/_apis/public/Release/badge/6490415d-8099-4822-aeb0-b3ecec0c9d40/3/3)](https://dev.azure.com/igoravl-mvpconf-2020/PoshDevOps/_release?definitionId=3)
