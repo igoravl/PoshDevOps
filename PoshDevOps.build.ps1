@@ -13,7 +13,7 @@ task Clean {
 
 task TestCode {
     Write-Build Yellow "`n`n`nTesting dev code before build"
-    $TestResult = Invoke-Pester -Script "$PSScriptRoot\Test\Unit" -Tag Unit -Show 'Header','Summary' -PassThru
+    $TestResult = Invoke-Pester -Script "$PSScriptRoot\Test\Unit" -Tag Unit -Show All -OutputFormat NUnitXml -OutputFile 'TestResult.xml'
     if($TestResult.FailedCount -gt 0) {throw 'Tests failed'}
 }
 
