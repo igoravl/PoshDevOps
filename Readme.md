@@ -1,8 +1,10 @@
 # PoshDevOps
 
----
+PoshDevOps ("PowerShell for Azure DevOps") is a sample project created for demo purposes, as part of my session at the [MVP Conference LATAM 2020](https://mvpconf.com.br/).
 
-PowerShell for Azure DevOps
+It can be used as an starting point to build automation scripts targeting the Azure DevOps REST API. But as a sample/demo project, it's rather simplistic. YMMV.
+
+-----------
 
 ## Instructions
 
