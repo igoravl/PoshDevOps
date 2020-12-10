@@ -1,0 +1,21 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- checkout: self
+  path: PoshDevOps
+  
+- task: PowerShell@2
+  displayName: "Build Module"
+  inputs:
+    targetType: 'inline'
+    script: |
+      Set-PSRepository PSGallery -InstallationPolicy Trusted
+      Install-Module InvokeBuild -Force -Scope CurrentUser -RequiredVersion 3.2.1 -SkipPublisherCheck
+      #Install-Module PowerShellGet -Force -Scope CurrentUser -RequiredVersion 1.6.0 -SkipPublisherCheck
+      Install-Module Pester -Force -Scope CurrentUser -RequiredVersion 4.1.1 -SkipPublisherCheck
+      Install-Module ModuleBuilder -Force -Scope CurrentUser -RequiredVersion 1.0.0 -SkipPublisherCheck
+      Invoke-Build
