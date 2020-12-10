@@ -1,0 +1,42 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- checkout: self
+  path: PoshDevOps
+  
+- task: PowerShell@2
+  displayName: "Build Module"
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Instala dependências
+      Set-PSRepository PSGallery -InstallationPolicy Trusted
+      Install-Module InvokeBuild -Force -Scope CurrentUser -RequiredVersion 3.2.1 -SkipPublisherCheck
+      Install-Module Pester -Force -Scope CurrentUser -RequiredVersion 4.1.1 -SkipPublisherCheck
+      Install-Module ModuleBuilder -Force -Scope CurrentUser -RequiredVersion 1.0.0 -SkipPublisherCheck
+      # Compila módulo
+      Invoke-Build
+
+- task: PublishTestResults@2
+  displayName: "Publish test results"
+  inputs:
+    testResultsFormat: 'NUnit'
+    testResultsFiles: '**/TestResult.xml'
+
+- task: CopyFiles@2
+  displayName: "Copy files to staging directory"
+  inputs:
+    SourceFolder: 'Bin'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: "Publish module to Drop"
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
